@@ -8,10 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class Bar1Controller: UIViewController {
 
+    
+    @IBOutlet weak var LeftSideBar: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        LeftSideBar.isHidden = true;
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -21,5 +25,11 @@ class ViewController: UIViewController {
     }
 
 
+    @IBAction func btnLeftSideBar(_ sender: Any) {
+        
+        LeftSideBar.isHidden = false;
+        
+    }
+    
 }
 
