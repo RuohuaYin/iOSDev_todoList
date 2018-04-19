@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		991FD5E520884C3D001205BA /* SideBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991FD5E420884C3D001205BA /* SideBarTableViewCell.swift */; };
 		99C29FF42087D1D50013F9EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C29FF32087D1D50013F9EA /* AppDelegate.swift */; };
 		99C29FF62087D1D50013F9EA /* Bar1Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C29FF52087D1D50013F9EA /* Bar1Controller.swift */; };
 		99C29FF92087D1D50013F9EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99C29FF72087D1D50013F9EA /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		991FD5E420884C3D001205BA /* SideBarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarTableViewCell.swift; sourceTree = "<group>"; };
 		99C29FF02087D1D50013F9EA /* TodoList_INFO6350.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList_INFO6350.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99C29FF32087D1D50013F9EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99C29FF52087D1D50013F9EA /* Bar1Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar1Controller.swift; sourceTree = "<group>"; };
@@ -56,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		991FD5E320884C0E001205BA /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				991FD5E420884C3D001205BA /* SideBarTableViewCell.swift */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
 		99C29FE72087D1D50013F9EA = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				99C29FF32087D1D50013F9EA /* AppDelegate.swift */,
+				991FD5E320884C0E001205BA /* Task */,
 				99C29FF52087D1D50013F9EA /* Bar1Controller.swift */,
 				99C29FFA2087D1D60013F9EA /* Assets.xcassets */,
 				99C29FF72087D1D50013F9EA /* Main.storyboard */,
@@ -199,6 +210,7 @@
 			files = (
 				99C29FF62087D1D50013F9EA /* Bar1Controller.swift in Sources */,
 				99C29FF42087D1D50013F9EA /* AppDelegate.swift in Sources */,
+				991FD5E520884C3D001205BA /* SideBarTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
