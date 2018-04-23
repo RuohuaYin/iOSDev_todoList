@@ -18,6 +18,7 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     var isSideViewOpen:Bool = false
+    var selectedTask: IndexPath?
     
     var sidebarTitle = ["Tasks","Settings","Search"]
     var sidebarIcon = [#imageLiteral(resourceName: "list"),#imageLiteral(resourceName: "settings-2"),#imageLiteral(resourceName: "search-2")];
@@ -123,6 +124,7 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
     // Sidebar table
         if tableView == self.LeftSideBar{
             rowNumber = sidebarTitle.count
+            print("rowNumber: \(rowNumber)")
     // task table
         }else if tableView == self.taskTable{
             if !twoDimensionalArray[section].isExpanded{
@@ -161,20 +163,38 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
         print(indexPath.row)
     // sidebar table
         if tableView == self.LeftSideBar{
-            
-            
+            print(indexPath.row)
     // task table
         }else if tableView == self.taskTable{
+            var updateIndexPaths: [IndexPath] = []
+            if selectedTask != indexPath{
+                selectedTask = indexPath
+                updateIndexPaths.append(selectedTask!)
+                updateIndexPaths.append(indexPath)
+                self.taskTable.reloadRows(at: updateIndexPaths, with: .automatic)
+            }else{
+                selectedTask = nil
+                updateIndexPaths.append(indexPath)
+                self.taskTable.reloadRows(at: updateIndexPaths, with: .automatic)
+            }
             
         }
-        
         }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 40
+        var rowHeight: CGFloat?
+    // sidebar table
+        if tableView == self.LeftSideBar{
+            rowHeight = 40
+    // task table
+        }else if tableView == self.taskTable{
+            if selectedTask == indexPath {
+                rowHeight = 90
+            }else{
+                rowHeight = 35
+            }
         }
-        return 80
+       return rowHeight!
     }
     
     func animateSideBar(){
@@ -202,6 +222,7 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBAction func btnLeftSideBar(_ sender: Any) {
         
+        print(123)
         LeftSideView.isHidden = false;
         self.view.bringSubview(toFront: LeftSideView)
         
