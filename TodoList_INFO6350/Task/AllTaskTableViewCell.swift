@@ -11,7 +11,8 @@ import UIKit
 class AllTaskTableViewCell: UITableViewCell {
     
     
-//    var link: TaskView?
+    var link: Bar1Controller?
+    var indexPath: IndexPath?
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -22,19 +23,38 @@ class AllTaskTableViewCell: UITableViewCell {
     */
 
     
+    @IBOutlet weak var checkedBox: UIButton!
+    
     @IBOutlet weak var TaskTitle: UILabel!
 
     @IBOutlet weak var deleteLine: UIButton!
     
     @IBOutlet weak var deleteBtn: UIButton!
     
+    @IBOutlet weak var taskDetail: UILabel!
+    
+    
+    
+    @IBAction func deleteBtn2Tapped(_ sender: Any) {
+        
+        link?.deleteTask(index: indexPath!)
+        link?.updateTaskList()
+        link?.updateTwoDimensionalArray()
+        link?.taskTable.reloadData()
+    }
+    
     
     
     @IBAction func deleteBtnTapped(_ sender: Any) {
         
-//        link?.someMethodIWantToCall(cell: self)
+        link?.deleteTask(index: indexPath!)
+        link?.updateTaskList()
+        link?.updateTwoDimensionalArray()
+        link?.taskTable.reloadData()
         
     }
+    
+    
     
     @IBAction func checkBoxTapped(_ sender: UIButton) {
         
@@ -44,13 +64,22 @@ class AllTaskTableViewCell: UITableViewCell {
             
         }) { (success) in
             
+            if(sender.isSelected==false){
+                self.link?.finishTask(index: self.indexPath!)
+            }else{
+                self.link?.deFinishTask(index: self.indexPath!)
+            }
+            
+            self.link?.updateTaskList()
+            
             sender.isSelected = !sender.isSelected
             self.TaskTitle.textColor = sender.isSelected ? #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1): #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             self.deleteLine.alpha = sender.isSelected ? 1 : 0
             self.deleteLine.isHidden = sender.isSelected ? false: true
             self.deleteBtn.isHidden = sender.isSelected ? false:true
-            
             self.deleteLine.transform = CGAffineTransform(scaleX: 0, y: 0)
+            
+            
                 
             UIView.animate(withDuration: 0.2, delay: 0.2, options: .curveLinear, animations: {
                 sender.transform = .identity

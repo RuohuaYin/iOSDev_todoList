@@ -10,14 +10,13 @@ import UIKit
 
 class task_CategoryTableVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
-    
-    
-
-    
+    var link:Bar1Controller?
+    var taskToChange:Task?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -42,8 +41,20 @@ class task_CategoryTableVC: UIViewController,UITableViewDataSource,UITableViewDe
         let cell: task_CategoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as! task_CategoryTableViewCell
         
         cell.categoryName.text = categoryList[indexPath.row].name
+        if taskToChange?.taskType.name == categoryList[indexPath.row].name{
+            cell.blueBlock.isHidden = false
+        }else{
+            cell.blueBlock.isHidden = true
+        }
         return cell
         
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        taskToChange?.taskType = categoryList[indexPath.row]
+        link?.changeTypeByIndex(newType: categoryList[indexPath.row])
+        tableView.reloadData()
     }
     
 

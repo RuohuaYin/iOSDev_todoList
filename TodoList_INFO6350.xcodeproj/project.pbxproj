@@ -8,10 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		991FD5E520884C3D001205BA /* SideBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991FD5E420884C3D001205BA /* SideBarTableViewCell.swift */; };
+		9998D2F6208E61D4007840F8 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9998D2F5208E61D4007840F8 /* CalendarVC.swift */; };
+		9998D2F9208E654F007840F8 /* dateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9998D2F8208E654F007840F8 /* dateCollectionViewCell.swift */; };
+		9998D2FB208E66A2007840F8 /* CalendarVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9998D2FA208E66A2007840F8 /* CalendarVars.swift */; };
+		999E8B22208EC4030021C255 /* addTask_categoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999E8B21208EC4030021C255 /* addTask_categoryCollectionViewCell.swift */; };
+		99AFCEF120927BE10055F1EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99AFCEF020927BE00055F1EF /* Assets.xcassets */; };
+		99BCE6C120919D4C0015CFDE /* addTask_timeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BCE6C020919D4C0015CFDE /* addTask_timeCollectionViewCell.swift */; };
 		99C29FF42087D1D50013F9EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C29FF32087D1D50013F9EA /* AppDelegate.swift */; };
 		99C29FF62087D1D50013F9EA /* Bar1Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C29FF52087D1D50013F9EA /* Bar1Controller.swift */; };
 		99C29FF92087D1D50013F9EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99C29FF72087D1D50013F9EA /* Main.storyboard */; };
-		99C29FFB2087D1D60013F9EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99C29FFA2087D1D60013F9EA /* Assets.xcassets */; };
 		99C29FFE2087D1D60013F9EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99C29FFC2087D1D60013F9EA /* LaunchScreen.storyboard */; };
 		99C2A0092087D1D70013F9EA /* TodoList_INFO6350Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C2A0082087D1D70013F9EA /* TodoList_INFO6350Tests.swift */; };
 		99D4AE8F208D68480026E6FE /* addTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D4AE8E208D68480026E6FE /* addTaskVC.swift */; };
@@ -35,11 +40,16 @@
 
 /* Begin PBXFileReference section */
 		991FD5E420884C3D001205BA /* SideBarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarTableViewCell.swift; sourceTree = "<group>"; };
+		9998D2F5208E61D4007840F8 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
+		9998D2F8208E654F007840F8 /* dateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dateCollectionViewCell.swift; sourceTree = "<group>"; };
+		9998D2FA208E66A2007840F8 /* CalendarVars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVars.swift; sourceTree = "<group>"; };
+		999E8B21208EC4030021C255 /* addTask_categoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTask_categoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		99AFCEF020927BE00055F1EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../.Trash/Assets.xcassets; sourceTree = "<group>"; };
+		99BCE6C020919D4C0015CFDE /* addTask_timeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTask_timeCollectionViewCell.swift; sourceTree = "<group>"; };
 		99C29FF02087D1D50013F9EA /* TodoList_INFO6350.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList_INFO6350.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99C29FF32087D1D50013F9EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99C29FF52087D1D50013F9EA /* Bar1Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar1Controller.swift; sourceTree = "<group>"; };
 		99C29FF82087D1D50013F9EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		99C29FFA2087D1D60013F9EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		99C29FFD2087D1D60013F9EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		99C29FFF2087D1D60013F9EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		99C2A0042087D1D60013F9EA /* TodoList_INFO6350Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoList_INFO6350Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +89,41 @@
 				991FD5E420884C3D001205BA /* SideBarTableViewCell.swift */,
 				99D4AE90208D6C9E0026E6FE /* taskTemplateCellTableViewCell.swift */,
 				99D4AE94208E334D0026E6FE /* task_CategoryTableViewCell.swift */,
+				999E8B21208EC4030021C255 /* addTask_categoryCollectionViewCell.swift */,
+				99BCE6C020919D4C0015CFDE /* addTask_timeCollectionViewCell.swift */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		9998D2F4208E61A0007840F8 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				9998D2F5208E61D4007840F8 /* CalendarVC.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		9998D2F7208E646A007840F8 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				9998D2F8208E654F007840F8 /* dateCollectionViewCell.swift */,
+			);
+			name = Calendar;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		999E8B1F208E96B90021C255 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9998D2FA208E66A2007840F8 /* CalendarVars.swift */,
+				99E3CFC32089B4D20085F123 /* ExpandableTasks.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		999E8B20208EC34E0021C255 /* Task */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -104,16 +149,17 @@
 		99C29FF22087D1D50013F9EA /* TodoList_INFO6350 */ = {
 			isa = PBXGroup;
 			children = (
+				99AFCEF020927BE00055F1EF /* Assets.xcassets */,
 				99C29FF32087D1D50013F9EA /* AppDelegate.swift */,
-				99D4AE8D208D68020026E6FE /* Controllers */,
 				991FD5E320884C0E001205BA /* Task */,
+				9998D2F7208E646A007840F8 /* Calendar */,
+				99D4AE8D208D68020026E6FE /* Controllers */,
 				99C29FF52087D1D50013F9EA /* Bar1Controller.swift */,
-				99C29FFA2087D1D60013F9EA /* Assets.xcassets */,
 				99C29FF72087D1D50013F9EA /* Main.storyboard */,
 				99C29FFC2087D1D60013F9EA /* LaunchScreen.storyboard */,
 				99C29FFF2087D1D60013F9EA /* Info.plist */,
 				99E3CFC12089214A0085F123 /* TaskView.swift */,
-				99E3CFC32089B4D20085F123 /* ExpandableTasks.swift */,
+				999E8B1F208E96B90021C255 /* Model */,
 			);
 			path = TodoList_INFO6350;
 			sourceTree = "<group>";
@@ -130,6 +176,8 @@
 		99D4AE8D208D68020026E6FE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				999E8B20208EC34E0021C255 /* Task */,
+				9998D2F4208E61A0007840F8 /* Calendar */,
 				99D4AE8E208D68480026E6FE /* addTaskVC.swift */,
 				99D4AE92208E308D0026E6FE /* task_CategoryTableVC.swift */,
 			);
@@ -218,7 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				99C29FFE2087D1D60013F9EA /* LaunchScreen.storyboard in Resources */,
-				99C29FFB2087D1D60013F9EA /* Assets.xcassets in Resources */,
+				99AFCEF120927BE10055F1EF /* Assets.xcassets in Resources */,
 				99C29FF92087D1D50013F9EA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,16 +285,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99BCE6C120919D4C0015CFDE /* addTask_timeCollectionViewCell.swift in Sources */,
 				99D4AE93208E308D0026E6FE /* task_CategoryTableVC.swift in Sources */,
 				99D4AE91208D6C9F0026E6FE /* taskTemplateCellTableViewCell.swift in Sources */,
 				99E3CFC02089186B0085F123 /* AllTaskTableViewCell.swift in Sources */,
 				99D4AE8F208D68480026E6FE /* addTaskVC.swift in Sources */,
+				9998D2F9208E654F007840F8 /* dateCollectionViewCell.swift in Sources */,
+				9998D2F6208E61D4007840F8 /* CalendarVC.swift in Sources */,
 				99C29FF62087D1D50013F9EA /* Bar1Controller.swift in Sources */,
 				99E3CFC42089B4D20085F123 /* ExpandableTasks.swift in Sources */,
 				99D4AE95208E334D0026E6FE /* task_CategoryTableViewCell.swift in Sources */,
+				9998D2FB208E66A2007840F8 /* CalendarVars.swift in Sources */,
 				99C29FF42087D1D50013F9EA /* AppDelegate.swift in Sources */,
 				99E3CFC22089214A0085F123 /* TaskView.swift in Sources */,
 				991FD5E520884C3D001205BA /* SideBarTableViewCell.swift in Sources */,
+				999E8B22208EC4030021C255 /* addTask_categoryCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
