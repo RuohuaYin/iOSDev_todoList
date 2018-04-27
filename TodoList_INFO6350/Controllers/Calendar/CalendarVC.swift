@@ -53,7 +53,7 @@ class CalendarVC: UIViewController,UICollectionViewDelegate,UICollectionViewData
         sortTaskByDateAscending()
         diffDateCounter()
         updateDateDimensionalArray()
-        print("dateDimensionArray \(dateDimensionalTask[0].tasks.count)")
+        //print("dateDimensionArray \(dateDimensionalTask[0].tasks.count)")
         calendarTaskTable.reloadData()
         print(dateList)
         
