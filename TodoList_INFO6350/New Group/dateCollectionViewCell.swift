@@ -12,5 +12,8 @@ class dateCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var DateLabel: UILabel!
     
+    @IBOutlet weak var taskNumberLabel: UILabel!
+    
+    @IBOutlet weak var todayCircleImage: UIImageView!
     
 }

@@ -14,6 +14,12 @@ struct ExpandableTasks{
     
 }
 
+struct dateSeparateTasks{
+    var date:String
+    var tasks: [Task] = []
+}
+
+
 struct category{
     var name:String
 }

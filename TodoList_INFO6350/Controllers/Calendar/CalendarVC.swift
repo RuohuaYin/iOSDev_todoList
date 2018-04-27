@@ -8,13 +8,17 @@
 
 import UIKit
 
-class CalendarVC: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource{
+class CalendarVC: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource, UITableViewDelegate,UITableViewDataSource{
+
 
     
     
     @IBOutlet weak var MonthLabel: UILabel!
     
     @IBOutlet weak var Calendar: UICollectionView!
+    
+    @IBOutlet weak var calendarTaskTable: UITableView!
+    
     
     let Months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
     let DaysOfMonth = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
@@ -41,6 +45,25 @@ class CalendarVC: UIViewController,UICollectionViewDelegate,UICollectionViewData
         currentMonth = Months[month]
         MonthLabel.text = "\(currentMonth) \(year)"
         
+        updateDateDimensionalArray()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        sortTaskByDateAscending()
+        diffDateCounter()
+        updateDateDimensionalArray()
+        print("dateDimensionArray \(dateDimensionalTask[0].tasks.count)")
+        calendarTaskTable.reloadData()
+        print(dateList)
+        
+    }
+    
+    func sortTaskByDateAscending(){
+        taskList = taskList.sorted(by: {$0.setupTime.compare($1.setupTime) == .orderedAscending})
+        for task in taskList{
+            print(task.setupTime)
+        }
     }
     
     @IBAction func Back(_ sender: Any) {
@@ -154,6 +177,7 @@ class CalendarVC: UIViewController,UICollectionViewDelegate,UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: dateCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCell", for: indexPath) as! dateCollectionViewCell
         
+        cell.todayCircleImage.isHidden = true
         cell.backgroundColor = UIColor.clear
         cell.DateLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
@@ -189,11 +213,85 @@ class CalendarVC: UIViewController,UICollectionViewDelegate,UICollectionViewData
         }
         
         if currentMonth == Months[calendar.component(.month, from: date)-1] && year == calendar.component(.year, from: date) && indexPath.row + 1 == day{
-            cell.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            
+            cell.todayCircleImage.isHidden = false
+            
         }
         
         return cell
     }
     
+    
+    
+    
+    //Table View
+    
+    var dateList:[String] = []
+    var dateDimensionalTask: [dateSeparateTasks] = []
+    
+    func updateDateDimensionalArray() -> [dateSeparateTasks]{
+        dateDimensionalTask = []
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "MM/dd/YYYY"
+
+        for i in 0..<dateList.count{
+            var dateTasks = dateSeparateTasks(date: dateList[i], tasks: [])
+            for task in taskList{
+                let taskDate:String = outputFormatter.string(from: task.setupTime)
+                if(taskDate == dateList[i]){
+                    print("yes")
+                    dateTasks.tasks.append(task)
+                }
+            }
+            dateDimensionalTask.append(dateTasks)
+        }
+        return dateDimensionalTask
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+       return 30
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        let cell:calendarTaskHeaderTableViewCell = tableView.dequeueReusableCell(withIdentifier: "calendarTaskHeader") as! calendarTaskHeaderTableViewCell
+        cell.DateLabel.text = dateList[section]
+        return cell
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
+        return diffDateCounter()
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dateDimensionalTask[section].tasks.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: CalendarAllTaskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "calendarTaskCell", for: indexPath) as! CalendarAllTaskTableViewCell
+        cell.taskNameLabel.text = dateDimensionalTask[indexPath.section].tasks[indexPath.row].title
+        return cell
+        
+    }
+    
+    
+    func diffDateCounter() -> Int{
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "MM/dd/YYYY"
+        dateList = []
+        var counter:Int = 0
+        var previousDate:String? = ""
+        for i in 0..<taskList.count {
+            let iDate = outputFormatter.string(from: taskList[i].setupTime)
+            if(previousDate != iDate){
+                dateList.append(iDate)
+                counter += 1
+            }
+            previousDate = iDate
+        }
+        return counter
+    }
 
 }

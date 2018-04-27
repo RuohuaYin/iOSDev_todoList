@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		99118ACF2092EECD002EC3ED /* CalendarAllTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99118ACE2092EECD002EC3ED /* CalendarAllTaskTableViewCell.swift */; };
+		99118AD220930351002EC3ED /* calendarTaskHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99118AD120930351002EC3ED /* calendarTaskHeaderTableViewCell.swift */; };
 		991FD5E520884C3D001205BA /* SideBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991FD5E420884C3D001205BA /* SideBarTableViewCell.swift */; };
 		9998D2F6208E61D4007840F8 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9998D2F5208E61D4007840F8 /* CalendarVC.swift */; };
 		9998D2F9208E654F007840F8 /* dateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9998D2F8208E654F007840F8 /* dateCollectionViewCell.swift */; };
@@ -39,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		99118ACE2092EECD002EC3ED /* CalendarAllTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAllTaskTableViewCell.swift; sourceTree = "<group>"; };
+		99118AD120930351002EC3ED /* calendarTaskHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calendarTaskHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		991FD5E420884C3D001205BA /* SideBarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarTableViewCell.swift; sourceTree = "<group>"; };
 		9998D2F5208E61D4007840F8 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
 		9998D2F8208E654F007840F8 /* dateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dateCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -107,6 +111,8 @@
 			isa = PBXGroup;
 			children = (
 				9998D2F8208E654F007840F8 /* dateCollectionViewCell.swift */,
+				99118ACE2092EECD002EC3ED /* CalendarAllTaskTableViewCell.swift */,
+				99118AD120930351002EC3ED /* calendarTaskHeaderTableViewCell.swift */,
 			);
 			name = Calendar;
 			path = "New Group";
@@ -289,6 +295,7 @@
 				99D4AE93208E308D0026E6FE /* task_CategoryTableVC.swift in Sources */,
 				99D4AE91208D6C9F0026E6FE /* taskTemplateCellTableViewCell.swift in Sources */,
 				99E3CFC02089186B0085F123 /* AllTaskTableViewCell.swift in Sources */,
+				99118AD220930351002EC3ED /* calendarTaskHeaderTableViewCell.swift in Sources */,
 				99D4AE8F208D68480026E6FE /* addTaskVC.swift in Sources */,
 				9998D2F9208E654F007840F8 /* dateCollectionViewCell.swift in Sources */,
 				9998D2F6208E61D4007840F8 /* CalendarVC.swift in Sources */,
@@ -299,6 +306,7 @@
 				99C29FF42087D1D50013F9EA /* AppDelegate.swift in Sources */,
 				99E3CFC22089214A0085F123 /* TaskView.swift in Sources */,
 				991FD5E520884C3D001205BA /* SideBarTableViewCell.swift in Sources */,
+				99118ACF2092EECD002EC3ED /* CalendarAllTaskTableViewCell.swift in Sources */,
 				999E8B22208EC4030021C255 /* addTask_categoryCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -167,7 +167,7 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
         //button.alignmentRect(forFrame: 10)
         button.setTitle("\(sectionNames[section])                                          +", for: .normal)
         
-        button.titleLabel?.textAlignment = .right
+        button.titleLabel?.textAlignment = .center
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.addTarget(self, action: #selector(handleExpandClose), for: .touchUpInside)
@@ -269,7 +269,6 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             cell.link = self
             cell.indexPath = indexPath
-            //cell.checkedBox.isSelected = taskInCell.isFinished
             resultCell = cell
         }
         return resultCell!
