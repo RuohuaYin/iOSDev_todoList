@@ -42,7 +42,7 @@ class task_CategoryTableVC: UIViewController,UITableViewDataSource,UITableViewDe
         
         cell.categoryName.text = categoryList[indexPath.row].name
         cell.imageView?.image = categoryList[indexPath.row].icon
-        if taskToChange?.taskType.name == categoryList[indexPath.row].name{
+        if taskToChange?.taskType == categoryList[indexPath.row].name{
             cell.blueBlock.isHidden = false
         }else{
             cell.blueBlock.isHidden = true
@@ -54,8 +54,8 @@ class task_CategoryTableVC: UIViewController,UITableViewDataSource,UITableViewDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        taskToChange?.taskType = categoryList[indexPath.row]
-        link?.changeTypeByIndex(newType: categoryList[indexPath.row])
+        taskToChange?.taskType = categoryList[indexPath.row].name
+        link?.changeTypeByIndex(newType: categoryList[indexPath.row].name)
         tableView.reloadData()
     }
     

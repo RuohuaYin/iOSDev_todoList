@@ -92,9 +92,9 @@ class AllTaskTableViewCell: UITableViewCell {
                 self.link?.deFinishTask(index: self.indexPath!)
             }
             
-            self.link?.updateTwoDimensionalArray()
-            self.link?.updateTaskList()
             
+            self.link?.updateTaskList()
+            self.link?.updateTwoDimensionalArray()
             
             sender.isSelected = !sender.isSelected
             self.TaskTitle.textColor = sender.isSelected ? #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1): #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)

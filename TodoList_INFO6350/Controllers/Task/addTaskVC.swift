@@ -173,8 +173,7 @@ class addTaskVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UIC
             return
         }
         
-        let taskType = categoryList[taskCategory.row]
-        print("taskType: \(taskType.name)")
+        let taskType = categoryList[taskCategory.row].name
         let taskDate = generateDate(situation: taskTime)
         
         let newTask:Task = Task(titleName: taskName, time: taskDate, type: taskType)
@@ -188,7 +187,7 @@ class addTaskVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UIC
         let taskDay = userCalendar.component(.day, from: taskList[0].setupTime)
         print("Error:\(taskDay)")
        
-        
+        self.dismiss(animated: true, completion: nil)
     }
     
 

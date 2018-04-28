@@ -303,7 +303,10 @@ class CalendarVC: UIViewController,UICollectionViewDelegate,UICollectionViewData
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
         let cell:calendarTaskHeaderTableViewCell = tableView.dequeueReusableCell(withIdentifier: "calendarTaskHeader") as! calendarTaskHeaderTableViewCell
-        cell.DateLabel.text = "\(dateList[section])"
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "MM-dd-YYYY"
+        outputFormatter.string(from: dateList[section])
+        cell.DateLabel.text = "\(outputFormatter.string(from: dateList[section]))"
         return cell
     }
     

@@ -194,7 +194,7 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
 // [Change: Type]
-    func changeTypeByIndex(newType: category){
+    func changeTypeByIndex(newType: String){
         if let taskIndex = selectedTask{
             twoDimensionalArray[taskIndex.section].tasks[taskIndex.row].taskType = newType
             updateTaskList()
@@ -361,8 +361,8 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
             let taskName = taskInCell.title
             let outputFormatter = DateFormatter()
             outputFormatter.dateFormat = "YYYY-MM-dd"
-            cell.TaskTitle.text = "\(taskName) \(indexPath)"
-            cell.taskDetail.text = "Category: \( taskInCell.taskType.name)   \(outputFormatter.string(from: taskInCell.setupTime))"
+            cell.TaskTitle.text = "\(taskName)"
+            cell.taskDetail.text = "Category: \( taskInCell.taskType)   \(outputFormatter.string(from: taskInCell.setupTime))"
             if(taskInCell.isFinished == true){
                 cell.checkedBox.isSelected = true
                 cell.deleteBtn.isHidden = false
@@ -498,49 +498,55 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func pushToServer(_ sender: Any) {
-//
-//        guard let url = URL(string:"") else {return}
-//        var request = URLRequest(url:url)
-//        request.httpMethod = "POST"
-//        request.addValue("application/json", forHTTPHeaderField: "Content-type")
-//        let postDictionary = ["taskID": " ",
-//                              "title":" ",
-//                              "setupTime":"",
-//                              "isFinished":"",
-//                              "taskType":"",
-//                              "taskDescription":"",
-//                              "taskPriority":""
-//                             ]
-//        //let newPOST = post(body:)
-//        do{
-//            let jsonBody = try JSONSerialization.data(withJSONObject: postDictionary, options: [])
-//            request.httpBody = jsonBody
-//        }catch{}
-//
-//        let session = URLSession.shared
-//        let task = session.dataTask(with: request) { (data, _, _) in
-//            guard let data = data else {return}
-//            do {
-//                let json = try JSONSerialization.jsonObject(with: dat, options: [])
-//                print(json)
-//            }
-//
-//        }
-//        task.resume()
+
+        guard let url = URL(string:"https://alexa.jjpro.me/api/v1/tasks") else {return}
+        var request = URLRequest(url:url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-type")
+        let postDictionary = ["description":"description",
+                                "id":"8",
+                                "isFinished":"true",
+                                "priority":"NONE",
+                                "setupTime" : "2018-4-7",
+                                "title" : "Go for Presentation",
+                                "type": "NONE"
+                             ]
         
-        print("get")
-        guard let url = URL(string: "https://jsonplaceholder.typicode.com/users") else {return}
+        //let newPOST = post(body:)
+        do{
+            let jsonBody = try JSONSerialization.data(withJSONObject: postDictionary, options: [])
+            request.httpBody = jsonBody
+        }catch{}
+
         let session = URLSession.shared
-        let task = session.dataTask(with: url){ (data, _,_) in
-            guard let data = data else{return}
+        let task = session.dataTask(with: request) { (data, _, _) in
+            guard let data = data else {return}
             do{
-                //let json = try JSONSerialization.jsonObject(with: data, options: [])
-                let aTask = try JSONDecoder().decode(Task.self, from: data)
+                print(1)
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                print(1)
                 print(json)
-            }catch{ }
-            
+            }catch{}
         }
         task.resume()
+        
+//        print("get")
+//        guard let url = URL(string: "https://jsonplaceholder.typicode.com/users") else {return}
+//
+////        https://alexa.jjpro.me/api/v1/tasks
+//        let session = URLSession.shared
+//        let task = session.dataTask(with: url){ (data, _,_) in
+//            guard let data = data else{return}
+//            do{
+////                let json = try JSONSerialization.jsonObject(with: data, options:.mutableContainers)
+////              print(json)
+//
+//                let TaskList1 = try JSONDecoder().decode([TestTask].self, from: data)
+//                print(TaskList1)
+//
+//            }catch{ }
+//        }
+//        task.resume()
         
     }
     
