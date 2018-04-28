@@ -7,18 +7,16 @@
 //
 
 import UIKit
+import Foundation
+
 
 class CalendarVC: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource, UITableViewDelegate,UITableViewDataSource{
 
-
-    
-    
     @IBOutlet weak var MonthLabel: UILabel!
     
     @IBOutlet weak var Calendar: UICollectionView!
     
     @IBOutlet weak var calendarTaskTable: UITableView!
-    
     
     let Months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
     let DaysOfMonth = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
@@ -53,8 +51,9 @@ class CalendarVC: UIViewController,UICollectionViewDelegate,UICollectionViewData
         sortTaskByDateAscending()
         diffDateCounter()
         updateDateDimensionalArray()
-        //print("dateDimensionArray \(dateDimensionalTask[0].tasks.count)")
         calendarTaskTable.reloadData()
+        Calendar.reloadData()
+
         print(dateList)
         
     }
@@ -181,10 +180,13 @@ class CalendarVC: UIViewController,UICollectionViewDelegate,UICollectionViewData
         cell.backgroundColor = UIColor.clear
         cell.DateLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
+        
+        
         if cell.isHidden{
             cell.isHidden = false
         }
-        
+       
+        cell.selectedBackground.isHidden = true
         
         switch Direction{
         case 0:
@@ -198,10 +200,28 @@ class CalendarVC: UIViewController,UICollectionViewDelegate,UICollectionViewData
         
         }
         
+        var taskSign:String = ""
+        for dateS in dateDimensionalTask{
+            for aTask in dateS.tasks{
+                let dateComp = calendar.dateComponents(in: TimeZone(identifier: "GMT")!, from: dateS.date)
+                if dateComp.day == Int(cell.DateLabel.text!) && dateComp.month == (month+1) && dateComp.year == year {
+                    if aTask.isFinished{
+                        taskSign.append("•")
+                    }else{
+                        taskSign.append("◦")
+                    }
+                }
+            }
+            
+        }
+        cell.taskNumberLabel.text = taskSign
+        
         if Int(cell.DateLabel.text!)! < 1 {
             cell.isHidden = true
         }
-        
+        if selectedCell==indexPath{
+            cell.selectedBackground.isHidden = false
+        }
         
         switch indexPath.row{
         case 0,6,7,13,14,20,21,27,28,34,35:
@@ -221,32 +241,60 @@ class CalendarVC: UIViewController,UICollectionViewDelegate,UICollectionViewData
         return cell
     }
     
+    var selectedCell:IndexPath?
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell: dateCollectionViewCell = collectionView.cellForItem(at: indexPath) as! dateCollectionViewCell
+        selectedCell = indexPath
+        
+        print(month+1)
+        print(cell.DateLabel.text)
+        print(year)
+        
+//        let dateComp = userCalendar.dateComponents(in: TimeZone(identifier: "GMT")!, from: taskList[0].setupTime)
+        
+        for taskStruct in dateDimensionalTask{
+            let dateComp = calendar.dateComponents(in: TimeZone(identifier: "GMT")!, from: taskStruct.date)
+            if dateComp.day == Int(cell.DateLabel.text!) && dateComp.month == (month+1) && dateComp.year == Int(year){
+                calendarTaskTable.scrollToRow(at:taskStruct.index, at: .top, animated: true)
+            }
+            //print("ooo: \()")
+        }
+        collectionView.reloadData()
+        
+        
+        
+    }
     
     
     
     //Table View
     
-    var dateList:[String] = []
+    var dateList:[Date] = []
     var dateDimensionalTask: [dateSeparateTasks] = []
     
     func updateDateDimensionalArray() -> [dateSeparateTasks]{
         dateDimensionalTask = []
         let outputFormatter = DateFormatter()
-        outputFormatter.dateFormat = "MM/dd/YYYY"
+        outputFormatter.dateFormat = "MM-dd-YYYY"
 
         for i in 0..<dateList.count{
-            var dateTasks = dateSeparateTasks(date: dateList[i], tasks: [])
+            var dateTasks = dateSeparateTasks(date: dateList[i], index: IndexPath(row: 0, section: i), tasks: [])
             for task in taskList{
-                let taskDate:String = outputFormatter.string(from: task.setupTime)
-                if(taskDate == dateList[i]){
-                    print("yes")
+                let taskDateComp = calendar.dateComponents(in: TimeZone(identifier: "GMT")!, from: task.setupTime)
+                
+                let sectionDateComp = calendar.dateComponents(in: TimeZone(identifier: "GMT")!, from: dateList[i])
+               
+                if taskDateComp.day == sectionDateComp.day && taskDateComp.month == sectionDateComp.month && taskDateComp.year == sectionDateComp.year {
                     dateTasks.tasks.append(task)
                 }
+
             }
             dateDimensionalTask.append(dateTasks)
         }
         return dateDimensionalTask
     }
+    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
        return 30
@@ -255,7 +303,7 @@ class CalendarVC: UIViewController,UICollectionViewDelegate,UICollectionViewData
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
         let cell:calendarTaskHeaderTableViewCell = tableView.dequeueReusableCell(withIdentifier: "calendarTaskHeader") as! calendarTaskHeaderTableViewCell
-        cell.DateLabel.text = dateList[section]
+        cell.DateLabel.text = "\(dateList[section])"
         return cell
     }
     
@@ -278,19 +326,25 @@ class CalendarVC: UIViewController,UICollectionViewDelegate,UICollectionViewData
     
     
     func diffDateCounter() -> Int{
-        let outputFormatter = DateFormatter()
-        outputFormatter.dateFormat = "MM/dd/YYYY"
+//        let outputFormatter = DateFormatter()
+//        outputFormatter.dateFormat = "MM-dd-YYYY"
         dateList = []
         var counter:Int = 0
-        var previousDate:String? = ""
+        var previousDate:Date? = Date().addingTimeInterval(-1000000000)
+        print("acdc:\(previousDate)")
         for i in 0..<taskList.count {
-            let iDate = outputFormatter.string(from: taskList[i].setupTime)
-            if(previousDate != iDate){
+            let iDate = taskList[i].setupTime
+            let iDateComp = calendar.dateComponents(in: TimeZone(identifier: "GMT")!, from: taskList[i].setupTime)
+            print("\(iDateComp.day)-\(iDateComp.month)-\(iDateComp.year)")
+            let prevDateComp = calendar.dateComponents(in: TimeZone(identifier: "GMT")!, from: previousDate!)
+            print("\(prevDateComp.day)-\(prevDateComp.month)-\(prevDateComp.year)")
+            if iDateComp.day != prevDateComp.day || iDateComp.month != prevDateComp.month || iDateComp.year != prevDateComp.year {
                 dateList.append(iDate)
                 counter += 1
             }
             previousDate = iDate
         }
+        print("OMG:\(counter)")
         return counter
     }
 

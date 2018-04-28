@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 struct ExpandableTasks{
     
     var isExpanded: Bool
@@ -15,22 +16,24 @@ struct ExpandableTasks{
 }
 
 struct dateSeparateTasks{
-    var date:String
+    var date:Date
+    var index:IndexPath
     var tasks: [Task] = []
 }
 
 
 struct category{
     var name:String
+    var icon:UIImage
 }
 
 var categoryList:[category] = [
-                               category(name: "NONE"),
-                               category(name: "WORK"),
-                               category(name: "STUDY"),
-                               category(name: "GROCERY LIST"),
-                               category(name: "HEHE")
-                              ]
+    category(name: "NONE",icon:#imageLiteral(resourceName: "type_none")),
+    category(name: "WORK",icon:#imageLiteral(resourceName: "type_work")),
+    category(name: "STUDY",icon:#imageLiteral(resourceName: "type_study")),
+    category(name: "GROCERY LIST",icon:#imageLiteral(resourceName: "type_grocery"))
+    
+    ]
 
 struct Task{
     
@@ -40,6 +43,8 @@ struct Task{
     var setupTime : Date
     var isFinished : Bool = false
     var taskType: category
+    var taskDescription: String
+    var taskPriority:String
     
     init(titleName:String, time:Date, type:category) {
         taskID = Task.taskCounter
@@ -48,6 +53,8 @@ struct Task{
         setupTime = time
         isFinished = false
         taskType = type
+        taskDescription = ""
+        taskPriority = "Mid"
     }
 }
 

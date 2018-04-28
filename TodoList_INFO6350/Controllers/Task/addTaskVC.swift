@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Foundation
 
 
 class addTaskVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UICollectionViewDelegate,UICollectionViewDataSource {
@@ -77,7 +77,8 @@ class addTaskVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UIC
     
     
 //Collection View
-    var timeList:[String] = ["Today","Tomorrow","Custom"]
+    var timeList:[String] = ["  Today","Tomorrow","Custom"]
+    var imageList = [#imageLiteral(resourceName: "today"),#imageLiteral(resourceName: "nextDay"),#imageLiteral(resourceName: "someDay")]
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var cellNumber:Int?
@@ -99,7 +100,10 @@ class addTaskVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UIC
         var resultCell: UICollectionViewCell?
         if collectionView == categoryCollectionView{
             let cell: addTask_categoryCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as! addTask_categoryCollectionViewCell
+            
             cell.categoryLabel.text = categoryList[indexPath.row].name
+            cell.checkedButton.setImage(categoryList[indexPath.row].icon, for: .normal)
+            
             if selectedCategory != nil && selectedCategory == indexPath {
                 cell.checkedButton.isSelected = true
             }else{
@@ -108,6 +112,9 @@ class addTaskVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UIC
             resultCell = cell
         }else if collectionView == timeCollectionView{
             let cell: addTask_timeCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "timeCell", for: indexPath) as! addTask_timeCollectionViewCell
+            
+            cell.checkedButton.setImage(imageList[indexPath.row], for: .normal)
+            
             if selectedTime != nil && indexPath == selectedTime{
                 cell.checkedButton.isSelected = true
             }else{
@@ -135,6 +142,12 @@ class addTaskVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UIC
 
             selectedTime =  indexPath
             collectionView.reloadData()
+            
+            if(indexPath.row == 2){
+                datePicker.isHidden = false
+            }else{
+                datePicker.isHidden = true
+            }
         }
         
         
@@ -165,9 +178,17 @@ class addTaskVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UIC
         let taskDate = generateDate(situation: taskTime)
         
         let newTask:Task = Task(titleName: taskName, time: taskDate, type: taskType)
+        print("              DATE WHEN ADDED \(taskDate) ")
+        
         taskList.append(newTask)
-        print(newTask.taskType.name)
-        print(taskDate)
+        print(taskList[0].setupTime)
+        let userCalendar = Calendar.current
+        let dateComp = userCalendar.dateComponents(in: TimeZone(identifier: "GMT")!, from: taskList[0].setupTime)
+        print("MaybeRight:\(dateComp)")
+        let taskDay = userCalendar.component(.day, from: taskList[0].setupTime)
+        print("Error:\(taskDay)")
+       
+        
     }
     
 
@@ -186,7 +207,6 @@ class addTaskVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UIC
             dateResult = datePicker.date.addingTimeInterval(-14400)
             
         default: break
-            
         }
         
     

@@ -33,10 +33,32 @@ class AllTaskTableViewCell: UITableViewCell {
     
     @IBOutlet weak var taskDetail: UILabel!
     
+    @IBOutlet weak var priorityImage: UIImageView!
+    
+    @IBOutlet weak var highImage: UIImageView!
+    
+    @IBOutlet weak var midImage: UIImageView!
+    
+    @IBOutlet weak var lowImage: UIImageView!
+    
+    
+    @IBAction func highBtn(_ sender: Any) {
+        link?.changePriorityByIndex(newPriority: "High")
+        link?.taskTable.reloadData()
+    }
+    
+    @IBAction func midBtn(_ sender: Any) {
+        link?.changePriorityByIndex(newPriority: "Mid")
+        link?.taskTable.reloadData()
+    }
+    
+    @IBAction func lowBtn(_ sender: Any) {
+        link?.changePriorityByIndex(newPriority: "Low")
+        link?.taskTable.reloadData()
+    }
     
     
     @IBAction func deleteBtn2Tapped(_ sender: Any) {
-        
         link?.deleteTask(index: indexPath!)
         link?.updateTaskList()
         link?.updateTwoDimensionalArray()
@@ -70,7 +92,9 @@ class AllTaskTableViewCell: UITableViewCell {
                 self.link?.deFinishTask(index: self.indexPath!)
             }
             
+            self.link?.updateTwoDimensionalArray()
             self.link?.updateTaskList()
+            
             
             sender.isSelected = !sender.isSelected
             self.TaskTitle.textColor = sender.isSelected ? #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1): #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)

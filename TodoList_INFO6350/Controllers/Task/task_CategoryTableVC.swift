@@ -41,11 +41,13 @@ class task_CategoryTableVC: UIViewController,UITableViewDataSource,UITableViewDe
         let cell: task_CategoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as! task_CategoryTableViewCell
         
         cell.categoryName.text = categoryList[indexPath.row].name
+        cell.imageView?.image = categoryList[indexPath.row].icon
         if taskToChange?.taskType.name == categoryList[indexPath.row].name{
             cell.blueBlock.isHidden = false
         }else{
             cell.blueBlock.isHidden = true
         }
+        
         return cell
         
     }

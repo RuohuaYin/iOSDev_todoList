@@ -1,5 +1,5 @@
 //
-//  CalendarAllTaskTableViewCell.swift
+//  AllTaskHeaderTableViewCell.swift
 //  TodoList_INFO6350
 //
 //  Created by 殷若华 on 2018/4/27.
@@ -8,13 +8,12 @@
 
 import UIKit
 
-class CalendarAllTaskTableViewCell: UITableViewCell {
+class AllTaskHeaderTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var checkedBox: UIButton!
     
-    @IBOutlet weak var taskNameLabel: UILabel!
+    @IBOutlet weak var HeaderButton: UIButton!
     
-    
+    @IBOutlet weak var PlusButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

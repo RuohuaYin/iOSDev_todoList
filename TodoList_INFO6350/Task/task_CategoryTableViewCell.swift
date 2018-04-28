@@ -15,6 +15,7 @@ class task_CategoryTableViewCell: UITableViewCell {
     
     @IBOutlet weak var blueBlock: UIButton!
     
+    @IBOutlet weak var typeImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

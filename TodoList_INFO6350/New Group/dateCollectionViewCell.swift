@@ -16,4 +16,6 @@ class dateCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var todayCircleImage: UIImageView!
     
+    @IBOutlet weak var selectedBackground: UIImageView!
+    
 }

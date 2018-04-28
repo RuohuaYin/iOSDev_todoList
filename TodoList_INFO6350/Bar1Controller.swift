@@ -9,14 +9,13 @@
 import UIKit
 import Foundation
 
-class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
+
+class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSource{
    
     @IBOutlet weak var LeftSideView: UIView!
     @IBOutlet weak var LeftSideBar: UITableView!
-    
     @IBOutlet weak var taskTable: UITableView!
-    
     
     var isSideViewOpen:Bool = false
     var selectedTask: IndexPath?
@@ -52,12 +51,40 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         let userCalendar = Calendar.current
         let nowDate = Date()
+        
         let tomorrowDate = nowDate.addingTimeInterval(86400)
+        
+        let upComingDate = tomorrowDate.addingTimeInterval(86400)
+        
+        
+        var dateComponents = DateComponents()
+        dateComponents.year = 2018
+        dateComponents.month = 4
+        dateComponents.day = 27
+        dateComponents.timeZone = TimeZone(abbreviation: "GMT") // Japan Standard Time
+        dateComponents.hour = 23
+        dateComponents.minute = 59
+        
+        // Create date from components
+        let overDueDate = userCalendar.date(from: dateComponents)
+        
         for aTask in taskList{
-            let taskDay = userCalendar.component(.day, from: aTask.setupTime)
-            let taskMonth = userCalendar.component(.month, from: aTask.setupTime)
-            let taskYear = userCalendar.component(.year, from: aTask.setupTime)
-
+            
+//            let taskDay = userCalendar.component(.day, from: aTask.setupTime)
+//            let taskMonth = userCalendar.component(.month, from: aTask.setupTime)
+//            let taskYear = userCalendar.component(.year, from: aTask.setupTime)
+//
+            
+            let dateComp = userCalendar.dateComponents(in: TimeZone(identifier: "GMT")!, from: aTask.setupTime)
+            
+            let taskDay = dateComp.day
+            let taskMonth = dateComp.month
+            let taskYear = dateComp.year
+            
+            
+            
+            print("abcabc:\(taskDay) \(taskMonth) \(taskYear)")
+            
             if taskDay==userCalendar.component(.day, from: nowDate) &&
                 taskMonth == userCalendar.component(.month, from: nowDate) &&
                   taskYear == userCalendar.component(.year, from: nowDate)
@@ -73,12 +100,32 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
             {
                 ExpandTomorrow.tasks.append(aTask)
                 print("tomorrow added")
+                
             }
+            
+            else if taskDay==userCalendar.component(.day, from: upComingDate) &&
+                taskMonth == userCalendar.component(.month, from: upComingDate) &&
+                taskYear == userCalendar.component(.year, from: upComingDate)
+                
+            {
+                ExpandUpcoming.tasks.append(aTask)
+                print("upComing added")
+                
+            }else if aTask.setupTime < overDueDate!{
+             
+                ExpandOverdue.tasks.append(aTask)
+                print("overdue Added")
+                
+                
+            }else{
+                ExpandSomeDay.tasks.append(aTask)
+                print("someDay added")
+            }
+            
+            
 
         }
         
-        
-
         twoDimensionalArray.append(ExpandToday)
         print("Today Count: \(twoDimensionalArray[0].tasks.count)")
         twoDimensionalArray.append(ExpandTomorrow)
@@ -88,7 +135,7 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
         twoDimensionalArray.append(ExpandSomeDay)
         print("SomeDay Count: \(twoDimensionalArray[3].tasks.count)")
         twoDimensionalArray.append(ExpandOverdue)
-        print("SomeDay Count: \(twoDimensionalArray[4].tasks.count)")
+        print("Overdue Count: \(twoDimensionalArray[4].tasks.count)")
         
         return twoDimensionalArray
     }
@@ -106,31 +153,72 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
     func getTaskByIndex(index: IndexPath) -> Task{
         return twoDimensionalArray[index.section].tasks[index.row]
     }
+    
+    @IBAction func setDescriptionBtn(_ sender: Any) {
+        performSegue(withIdentifier: "descriptionSettingVC", sender: self)
+    }
+    
     @IBAction func setTypeBtn(_ sender: Any) {
         performSegue(withIdentifier: "typeSettingVC", sender: self)
     }
+    
+    var priorityOpen:Bool = false
+    
+    @IBAction func setPriorityBtn(_ sender: Any) {
+        if(priorityOpen == false){
+            priorityOpen = true
+        }else{
+            priorityOpen = false
+        }
+        print(priorityOpen)
+        taskTable.reloadData()
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? task_CategoryTableVC{
             destination.taskToChange = getTaskByIndex(index: selectedTask!)
             destination.link = self
+        } else if let destination = segue.destination as? task_DescriptionVC{
+            destination.taskToChange = getTaskByIndex(index: selectedTask!)
+            destination.link = self
         }
     }
+// [Change: Description]
+    func changeDescriptionAndTitleByIndex(newTitle:String,newDescription:String){
+        if let taskIndex = selectedTask{
+            twoDimensionalArray[taskIndex.section].tasks[taskIndex.row].title = newTitle
+            twoDimensionalArray[taskIndex.section].tasks[taskIndex.row].taskDescription = newDescription
+            updateTaskList()
+            updateTwoDimensionalArray()
+        }
+    }
+// [Change: Type]
     func changeTypeByIndex(newType: category){
         if let taskIndex = selectedTask{
             twoDimensionalArray[taskIndex.section].tasks[taskIndex.row].taskType = newType
             updateTaskList()
             updateTwoDimensionalArray()
-            //taskTable.reloadData()
         }
-        
+
     }
+// [Change: Priority]
+    func changePriorityByIndex(newPriority: String){
+        if let taskIndex = selectedTask{
+            twoDimensionalArray[taskIndex.section].tasks[taskIndex.row].taskPriority = newPriority
+            updateTaskList()
+            updateTwoDimensionalArray()
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         twoDimensionalArray = updateTwoDimensionalArray()
-        
         LeftSideView.isHidden = true;
         // Do any additional setup after loading the view, typically from a nib.
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -141,8 +229,10 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         animateSideBar()
+        
         twoDimensionalArray = updateTwoDimensionalArray()
         taskTable.reloadData()
+        
     }
     
     
@@ -161,18 +251,27 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//
+//        let button = UIButton(type: UIButtonType.system)
+//        //        button.frame = CGRect(x: 0, y: 0, width: 250, height: 34)
+//        //button.alignmentRect(forFrame: 10)
+//        button.setTitle("\(sectionNames[section])                                          +", for: .normal)
+//
+//        button.titleLabel?.textAlignment = .center
+//        button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+//        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+//        button.addTarget(self, action: #selector(handleExpandClose), for: .touchUpInside)
+//        button.tag = section
+//        return button
         
-        let button = UIButton(type: UIButtonType.system)
-        //        button.frame = CGRect(x: 0, y: 0, width: 250, height: 34)
-        //button.alignmentRect(forFrame: 10)
-        button.setTitle("\(sectionNames[section])                                          +", for: .normal)
+        let cell: AllTaskHeaderTableViewCell = tableView.dequeueReusableCell(withIdentifier: "taskHeaderCell") as! AllTaskHeaderTableViewCell
         
-        button.titleLabel?.textAlignment = .center
-        button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        button.addTarget(self, action: #selector(handleExpandClose), for: .touchUpInside)
-        button.tag = section
-        return button
+        cell.HeaderButton.setTitle("\(sectionNames[section] )", for: UIControlState.normal)
+        cell.HeaderButton.addTarget(self, action: #selector(handleExpandClose), for: .touchUpInside)
+        cell.HeaderButton.tag = section
+        print("sectionSetting: \(section)")
+        return cell
+        
     }
     
     
@@ -184,20 +283,26 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
         var indexPaths = [IndexPath]()
         for row in twoDimensionalArray[section].tasks.indices{
             let indexPath = IndexPath(row:row,section:section)
+            print("append \(indexPath)")
             indexPaths.append(indexPath)
         }
         
+// isExpanded 状态 转换
         let isExpanded = twoDimensionalArray[section].isExpanded
         twoDimensionalArray[section].isExpanded = !isExpanded
         
-        button.setTitle(isExpanded ? "\(sectionNames[section])                                                 ···":"\(sectionNames[section])                                          +", for: .normal)
-        
+//        button.setTitle(isExpanded ? "\(sectionNames[section])                                                 ···":"\(sectionNames[section])                                          +", for: .normal)
+        //var sectionSet:[IndexSet] = IndexSet()
+//        sectionSet
         if isExpanded{
-            taskTable.deleteRows(at: indexPaths, with: .fade)
-            //taskTable.reloadData()
+            
+            //taskTable.deleteRows(at: indexPaths, with: .fade)
+            //taskTable.reloadSections(IndexSet(integer: section), with: .automatic)
+            taskTable.reloadData()
         }else{
-            taskTable.insertRows(at: indexPaths, with: .fade)
-            //taskTable.reloadData()
+            //taskTable.insertRows(at: indexPaths, with: .fade)
+//            taskTable.reloadSections(IndexSet(integer: section), with: .automatic)
+            taskTable.reloadData()
 
         }
         
@@ -213,7 +318,6 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
         }else if tableView == self.taskTable{
 //            secNumber = twoDimensionalArray.count
             secNumber = 5
-
         }
         return secNumber!
     }
@@ -223,7 +327,7 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
         var rowNumber: Int?
     // Sidebar table
         if tableView == self.LeftSideBar{
-            rowNumber = sidebarTitle.count
+            rowNumber = categoryList.count
             //print("rowNumber: \(rowNumber)")
     // task table
         }else if tableView == self.taskTable{
@@ -232,8 +336,9 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
             }else{
                 rowNumber = twoDimensionalArray[section].tasks.count
             }
-            //print("rowNumber: \(rowNumber!)" )
+            print("rowNumber: \(rowNumber!)" )
         }
+        
         return rowNumber!
     }
     
@@ -243,9 +348,9 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
     // sidebar table
         if tableView == self.LeftSideBar{
             let cell:SideBarTableViewCell = tableView.dequeueReusableCell(withIdentifier: "sideBarCell") as! SideBarTableViewCell
-            cell.img.image = sidebarIcon[indexPath.row]
-            cell.label.text = sidebarTitle[indexPath.row]
-            cell.contentView.backgroundColor = sidebarColor[indexPath.row]
+            cell.img.image = categoryList[indexPath.row].icon
+            cell.label.text = categoryList[indexPath.row].name
+            cell.contentView.backgroundColor = sidebarColor[indexPath.row%3]
             resultCell = cell
             
     // task table
@@ -254,8 +359,10 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             var taskInCell = twoDimensionalArray[indexPath.section].tasks[indexPath.row]
             let taskName = taskInCell.title
-            cell.TaskTitle.text = taskName
-            cell.taskDetail.text = "Category: \( taskInCell.taskType.name)  \(taskInCell.setupTime)"
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = "YYYY-MM-dd"
+            cell.TaskTitle.text = "\(taskName) \(indexPath)"
+            cell.taskDetail.text = "Category: \( taskInCell.taskType.name)   \(outputFormatter.string(from: taskInCell.setupTime))"
             if(taskInCell.isFinished == true){
                 cell.checkedBox.isSelected = true
                 cell.deleteBtn.isHidden = false
@@ -266,6 +373,21 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.deleteBtn.isHidden = true
                 cell.deleteLine.isHidden = true
                 cell.TaskTitle.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            }
+            
+            cell.highImage.image = #imageLiteral(resourceName: "rec_gray")
+            cell.midImage.image = #imageLiteral(resourceName: "rec_gray")
+            cell.lowImage.image = #imageLiteral(resourceName: "rec_gray")
+
+            if(taskInCell.taskPriority=="High"){
+                cell.priorityImage.image = #imageLiteral(resourceName: "1priority")
+                cell.highImage.image = #imageLiteral(resourceName: "rec_blue")
+            }else if taskInCell.taskPriority == "Mid"{
+                cell.priorityImage.image = #imageLiteral(resourceName: "2priority")
+                cell.midImage.image = #imageLiteral(resourceName: "rec_blue")
+            }else if taskInCell.taskPriority == "Low"{
+                cell.priorityImage.image = #imageLiteral(resourceName: "3priority")
+                cell.lowImage.image = #imageLiteral(resourceName: "rec_blue")
             }
             cell.link = self
             cell.indexPath = indexPath
@@ -293,6 +415,7 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
     // sidebar table
         if tableView == self.LeftSideBar{
             print(indexPath.row)
+            
     // task table
         }else if tableView == self.taskTable{
             var updateIndexPaths: [IndexPath] = []
@@ -321,6 +444,11 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
         }else if tableView == self.taskTable{
             if selectedTask == indexPath {
                 rowHeight = 90
+                if priorityOpen == true{
+                    rowHeight = 135
+                    
+                }
+                
             }else{
                 rowHeight = 35
             }
@@ -356,7 +484,6 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
         print(123)
         LeftSideView.isHidden = false;
         self.view.bringSubview(toFront: LeftSideView)
-        
         if !isSideViewOpen{
               isSideViewOpen = true
               self.LeftSideView.alpha = 1.0
@@ -368,6 +495,11 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
             }, completion: nil)
             LeftSideView.isHidden = true;
         }
+    }
+    
+    @IBAction func pushToServer(_ sender: Any) {
+        
+        //guard let url = URL(string:"")
     }
     
 

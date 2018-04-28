@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		99118ACF2092EECD002EC3ED /* CalendarAllTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99118ACE2092EECD002EC3ED /* CalendarAllTaskTableViewCell.swift */; };
 		99118AD220930351002EC3ED /* calendarTaskHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99118AD120930351002EC3ED /* calendarTaskHeaderTableViewCell.swift */; };
+		99118AD420939BCD002EC3ED /* AllTaskHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99118AD320939BCD002EC3ED /* AllTaskHeaderTableViewCell.swift */; };
+		99118AD62093E14C002EC3ED /* task_DescriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99118AD52093E14C002EC3ED /* task_DescriptionVC.swift */; };
 		991FD5E520884C3D001205BA /* SideBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991FD5E420884C3D001205BA /* SideBarTableViewCell.swift */; };
 		9998D2F6208E61D4007840F8 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9998D2F5208E61D4007840F8 /* CalendarVC.swift */; };
 		9998D2F9208E654F007840F8 /* dateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9998D2F8208E654F007840F8 /* dateCollectionViewCell.swift */; };
@@ -43,6 +45,8 @@
 /* Begin PBXFileReference section */
 		99118ACE2092EECD002EC3ED /* CalendarAllTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAllTaskTableViewCell.swift; sourceTree = "<group>"; };
 		99118AD120930351002EC3ED /* calendarTaskHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calendarTaskHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		99118AD320939BCD002EC3ED /* AllTaskHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTaskHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		99118AD52093E14C002EC3ED /* task_DescriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = task_DescriptionVC.swift; sourceTree = "<group>"; };
 		991FD5E420884C3D001205BA /* SideBarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarTableViewCell.swift; sourceTree = "<group>"; };
 		9998D2F5208E61D4007840F8 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
 		9998D2F8208E654F007840F8 /* dateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dateCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -95,6 +99,7 @@
 				99D4AE94208E334D0026E6FE /* task_CategoryTableViewCell.swift */,
 				999E8B21208EC4030021C255 /* addTask_categoryCollectionViewCell.swift */,
 				99BCE6C020919D4C0015CFDE /* addTask_timeCollectionViewCell.swift */,
+				99118AD320939BCD002EC3ED /* AllTaskHeaderTableViewCell.swift */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -130,6 +135,9 @@
 		999E8B20208EC34E0021C255 /* Task */ = {
 			isa = PBXGroup;
 			children = (
+				99D4AE8E208D68480026E6FE /* addTaskVC.swift */,
+				99D4AE92208E308D0026E6FE /* task_CategoryTableVC.swift */,
+				99118AD52093E14C002EC3ED /* task_DescriptionVC.swift */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -184,8 +192,6 @@
 			children = (
 				999E8B20208EC34E0021C255 /* Task */,
 				9998D2F4208E61A0007840F8 /* Calendar */,
-				99D4AE8E208D68480026E6FE /* addTaskVC.swift */,
-				99D4AE92208E308D0026E6FE /* task_CategoryTableVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -295,9 +301,11 @@
 				99D4AE93208E308D0026E6FE /* task_CategoryTableVC.swift in Sources */,
 				99D4AE91208D6C9F0026E6FE /* taskTemplateCellTableViewCell.swift in Sources */,
 				99E3CFC02089186B0085F123 /* AllTaskTableViewCell.swift in Sources */,
+				99118AD420939BCD002EC3ED /* AllTaskHeaderTableViewCell.swift in Sources */,
 				99118AD220930351002EC3ED /* calendarTaskHeaderTableViewCell.swift in Sources */,
 				99D4AE8F208D68480026E6FE /* addTaskVC.swift in Sources */,
 				9998D2F9208E654F007840F8 /* dateCollectionViewCell.swift in Sources */,
+				99118AD62093E14C002EC3ED /* task_DescriptionVC.swift in Sources */,
 				9998D2F6208E61D4007840F8 /* CalendarVC.swift in Sources */,
 				99C29FF62087D1D50013F9EA /* Bar1Controller.swift in Sources */,
 				99E3CFC42089B4D20085F123 /* ExpandableTasks.swift in Sources */,
