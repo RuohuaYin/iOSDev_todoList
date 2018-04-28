@@ -22,7 +22,7 @@ struct dateSeparateTasks{
 }
 
 
-struct category{
+struct category:Decodable{
     var name:String
     var icon:UIImage
 }
@@ -32,10 +32,9 @@ var categoryList:[category] = [
     category(name: "WORK",icon:#imageLiteral(resourceName: "type_work")),
     category(name: "STUDY",icon:#imageLiteral(resourceName: "type_study")),
     category(name: "GROCERY LIST",icon:#imageLiteral(resourceName: "type_grocery"))
-    
-    ]
+]
 
-struct Task{
+struct Task:Decodable{
     
     var taskID : Int
     static var taskCounter: Int = 1

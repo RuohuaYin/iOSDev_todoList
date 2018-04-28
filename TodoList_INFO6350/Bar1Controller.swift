@@ -498,8 +498,50 @@ class Bar1Controller: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func pushToServer(_ sender: Any) {
+//
+//        guard let url = URL(string:"") else {return}
+//        var request = URLRequest(url:url)
+//        request.httpMethod = "POST"
+//        request.addValue("application/json", forHTTPHeaderField: "Content-type")
+//        let postDictionary = ["taskID": " ",
+//                              "title":" ",
+//                              "setupTime":"",
+//                              "isFinished":"",
+//                              "taskType":"",
+//                              "taskDescription":"",
+//                              "taskPriority":""
+//                             ]
+//        //let newPOST = post(body:)
+//        do{
+//            let jsonBody = try JSONSerialization.data(withJSONObject: postDictionary, options: [])
+//            request.httpBody = jsonBody
+//        }catch{}
+//
+//        let session = URLSession.shared
+//        let task = session.dataTask(with: request) { (data, _, _) in
+//            guard let data = data else {return}
+//            do {
+//                let json = try JSONSerialization.jsonObject(with: dat, options: [])
+//                print(json)
+//            }
+//
+//        }
+//        task.resume()
         
-        //guard let url = URL(string:"")
+        print("get")
+        guard let url = URL(string: "https://jsonplaceholder.typicode.com/users") else {return}
+        let session = URLSession.shared
+        let task = session.dataTask(with: url){ (data, _,_) in
+            guard let data = data else{return}
+            do{
+                //let json = try JSONSerialization.jsonObject(with: data, options: [])
+                let aTask = try JSONDecoder().decode(Task.self, from: data)
+                print(json)
+            }catch{ }
+            
+        }
+        task.resume()
+        
     }
     
 
